@@ -54,7 +54,7 @@ class Picker :
 
 class Shodan() :
   
-	def __init__(self, key, limit=None, offset=None, timeout=5) :
+	def __init__(self, key, limit=999, offset=None, timeout=5) :
 
 		self.key = shodan.Shodan(key)
 		self.limit = limit
@@ -169,8 +169,8 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Django Hunter', usage=None)
 	parser.add_argument('--dork', '-s', required=False, metavar='dork', default='title:"DisallowedHost"', help='Search for dork shodan i.e DisallowedHost at /')
 	parser.add_argument('--key', '-k', required=True, metavar='API key', help='Shodan API key')
-	parser.add_argument( '--limit','-l', type=int, required=True, metavar='limit', help='Limit results returned by shodan')
-	parser.add_argument( '--timeout','-t', type=float, required=True, default=5, metavar='timeout', help='Timeout default: 5')
+	parser.add_argument( '--limit','-l', type=int, default=999, required=False, metavar='limit', help='Limit results returned by shodan')
+	parser.add_argument( '--timeout','-t', type=float, required=False, default=5, metavar='timeout', help='Timeout default: 5')
 	args = parser.parse_args()
 
 	if len(sys.argv) <= 2:
