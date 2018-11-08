@@ -1,5 +1,7 @@
 # Djangohunter
 ##### Tool designed to help identify incorrectly configured Django applications that are exposing sensitive information.
+https://www.reddit.com/r/django/comments/87qcf4/28165_thousand_django_running_servers_are_exposed/
+https://twitter.com/6ix7ine/status/978598496658960384?lang=en
 
  ### Usage
  ```
