@@ -4,8 +4,16 @@
  ### Usage
  ```
 Usage: python3 djangohunter.py --key {shodan}
-
+Dorks: 'DisallowedHost', 'KeyError', 'OperationalError', 'Page not found at /'
 ```
+### Requirements
+- Shodan  
+- Pyfiglet  
+- Requests  
+- BeautifulSoup  
+
+```pip -r install requirements```   
+
 ### Demo
 [![asciicast](https://asciinema.org/a/210648.svg)](https://asciinema.org/a/210648)
 
