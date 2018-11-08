@@ -92,6 +92,16 @@ class Shodan() :
 			'GOOGLE_API_KEY',
 			'SSH_PASSWORD',
 			'SSH_AUTH',
+			'RABBITMQ_DEFAULT_PASS',
+			'AWS_SECRET_KEY',
+			'AWS_S3_BUCKET',
+			'EMAIL_HOST_PASSWORD',
+			'SENDGRID_PASSWORD',
+			'PAYU_KEY',
+			'DHL_API_CLIENT_SECRET',
+			'LIGHT_PASSWORD',
+			'DB_PASSWORD',
+			'ATEL_AUTH_SECRET'
 		) # Interesting keywords ('DisallowedHost at /', 'DisallowedHost', 'KeyError', 'OperationalError', 'Page not found at /', '')
 
 		try:
