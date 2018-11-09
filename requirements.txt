@@ -1,4 +1,4 @@
 shodan
-BeautifulSoup
+beautifulsoup4
 requests
 pyfiglet
