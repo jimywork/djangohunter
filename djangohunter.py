@@ -8,7 +8,7 @@
 # Shodan Dork: ('DisallowedHost at /', 'DisallowedHost', 'KeyError', 'OperationalError', 'Page not found at /')
 
 try:
-	from pyfiglet import Figlet
+    from pyfiglet import Figlet
 except ImportError as e:
     print("Error: %s \n" % (e))
     print("Try this ... pip install -r /path/to/requirements.txt")
@@ -21,27 +21,27 @@ from concurrent.futures import ThreadPoolExecutor
 
 if __name__ == '__main__':
 
-	graph = Figlet(font='slant').renderText('djangoHunter')
-	print(graph)
+    graph = Figlet(font='slant').renderText('djangoHunter')
+    print(graph)
 
-	print("""
+    print("""
   Tool designed to help identify incorrectly configured 
   Django applications that are exposing sensitive information.\n
 """)
 
-	parser = argparse.ArgumentParser(description='Django Hunter', usage=None)
-	parser.add_argument('--dork', '-s', required=False, metavar='dork', default='title:"DisallowedHost"', help='Search for dork shodan i.e DisallowedHost at /')
-	parser.add_argument('--key', '-k', required=True, metavar='API key', help='Shodan API key')
-	parser.add_argument( '--limit','-l', type=int, default=999, required=False, metavar='limit', help='Limit results returned by shodan')
-	parser.add_argument( '--timeout','-t', type=float, required=False, default=5, metavar='timeout', help='Timeout default: 5')
-	parser.add_argument( '--threads', type=float, required=False, default=5, metavar='threads', help='Threads default: 5')
-	args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Django Hunter', usage=None)
+    parser.add_argument('--dork', '-s', required=False, metavar='dork', default='title:"DisallowedHost"', help='Search for dork shodan i.e DisallowedHost at /')
+    parser.add_argument('--key', '-k', required=True, metavar='API key', help='Shodan API key')
+    parser.add_argument( '--limit','-l', type=int, default=999, required=False, metavar='limit', help='Limit results returned by shodan')
+    parser.add_argument( '--timeout','-t', type=float, required=False, default=5, metavar='timeout', help='Timeout default: 5')
+    parser.add_argument( '--threads', type=float, required=False, default=5, metavar='threads', help='Threads default: 5')
+    args = parser.parse_args()
 
-	if len(sys.argv) <= 2:
-		parser.print_help()
+    if len(sys.argv) <= 2:
+        parser.print_help()
 
 
-	django = Search(api=args.key, dork=args.dork, limit=args.limit, timeout=args.timeout)
+    django = Search(api=args.key, dork=args.dork, limit=args.limit, timeout=args.timeout)
 
-	with ThreadPoolExecutor(max_workers=args.threads) as executor:
-		concurrents = executor.map(django.load, django.urls)
+    with ThreadPoolExecutor(max_workers=args.threads) as executor:
+        concurrents = executor.map(django.load, django.urls)
