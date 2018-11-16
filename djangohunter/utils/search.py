@@ -1,19 +1,12 @@
-try:
-
-    import shodan
-    import requests
-    from bs4 import BeautifulSoup
-
-except ImportError as e:
-    print("Error: %s \n" % (e))
-    print("Try this ... pip install -r /path/to/requirements.txt")
-
-from utils.color import Color
+import shodan
+import requests
+from bs4 import BeautifulSoup
+from djangohunter.utils.color import Color
 
 class Search(object):
 
     """docstring for ClassName"""
-    def __init__(self, api, dork='"DisallowedHost"', limit=None, offset=None, timeout=None) :
+    def __init__(self, api, dork='"DisallowedHost"', limit=None, offset=None, timeout=None):
 
         self.shodan = shodan.Shodan(api)
         self.limit = limit
@@ -31,12 +24,12 @@ class Search(object):
             total = results['total']
 
 
-            print('{} Shodan found {} hosts with debug mode enabled'.format(self.color.status("[+]"), total))
-            print("{} Looking for secret keys wait a moment ..\n".format(self.color.yellows("[!]")))
+            print(F'{self.color.status("[+]")} Shodan found {total} hosts with debug mode enabled')
+            print(F'{self.color.yellows("[!]")} Looking for secret keys wait a moment ..\n')
 
             for match in matches:
 
-                self.ipadress = match['ip_str']
+                self.ipaddress = match['ip_str']
                 self.port = match['port']
                 self.hostnames = match['hostnames']
                 self.org = match['org']
@@ -48,10 +41,10 @@ class Search(object):
                 if self.port == 443 :
                     continue
 
-                self._urls.append(['http://{}:{}'.format(self.ipadress, self.port)])
+                self._urls.append([F'http://{self.ipaddress}:{self.port}'])
                 
         except shodan.APIError as error:
-            print("error: {}".format(error))
+            print(F"error: {error}")
             pass
 
     @property
@@ -114,7 +107,7 @@ class Search(object):
             self.domain = ', '.join(str(domain) for domain in self.domains)
 
             try:
-                request = requests.get('{}'.format(url), timeout=self.timeout)
+                request = requests.get(F'{url}', timeout=self.timeout)
                 html = BeautifulSoup(request.text, 'html.parser')
 
                 keys = []
@@ -126,10 +119,16 @@ class Search(object):
                 keys = ', '.join(str(key) for key in keys) # Keywords found
 
                 if len(keys) != 0:
-                    print("[+] Possible exposed credentials on {}".format(request.url))
-                    print('[+] Secret keys found {}\n'.format(self.color.error(keys)))
+                    print(F"[+] Possible exposed credentials on {request.url}")
+                    print(F'[+] Secret keys found {self.color.error(keys)}\n')
                     # some information about the host
-                    print("\tOrganization: {}\n\tHostnames: {}\n\tDomains: {}\n\tCity: {}\n\tCountry: {}\n".format(self.org, self.hostname, self.domain, self.city, self.country))
+                    print(F"""
+                        \tOrganization: {self.org}\n
+                        \tHostnames: {self.hostname}\n
+                        \tDomains: {self.domain}\n
+                        \tCity: {self.city}\n
+                        \tCountry: {self.country}\n
+                    """)
 
             except requests.exceptions.RequestException as error:
                 continue
