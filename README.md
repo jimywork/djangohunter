@@ -14,7 +14,7 @@ Dorks: 'DisallowedHost', 'KeyError', 'OperationalError', 'Page not found at /'
 - Requests  
 - BeautifulSoup  
 
-```pip -r install requirements```   
+```pip install -r requirements.txt```   
 
 ### Demo
 [![asciicast](https://asciinema.org/a/210648.svg)](https://asciinema.org/a/210648)
